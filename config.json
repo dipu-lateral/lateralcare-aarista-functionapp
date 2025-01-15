@@ -1,0 +1,58 @@
+{
+    "azureStorageContainerName" : "cont-alai-aarista",
+    "clientId":"aarista",
+    "keyVaultUrl":"https://alai-aarista-kv-eus2-sky.vault.azure.net/",
+    "sftpConnections":{
+        "waystar": {
+            "hostKey": "aarista-sftp-hostname",
+            "usernameKey": "aarista-sftp-username",
+            "passwordKey": "aarista-sftp-password",
+            "837destinationKey": "aarista-sftp-837-destination",
+            "enabled":true,
+            "835":{
+                "sourceKey": "aarista-sftp-835-source",
+                "storageDestination":"inbound/aarista/835_edi/{0}/{1}/sftp",
+                "fileFormat":".835",
+                "deleteAfterRead":false,
+                "enabled":true
+            },
+            "277":{
+                "sourceKey": "aarista-sftp-277-source",
+                "storageDestination":"inbound/aarista/277_edi/{0}/{1}",
+                "fileFormat": ".ins",
+                "deleteAfterRead":false,
+                "enabled":true
+            },
+            "999":{
+                "sourceKey": "aarista-sftp-999-source",
+                "storageDestination":"inbound/aarista/999_edi/{0}/{1}",
+                "fileFormat": ".edi",
+                "deleteAfterRead":false,
+                "enabled":true
+            }
+        }
+    },
+    "copyFileConnections":{
+        "aarista":{
+            "837":{
+                "source":"aarista",
+                "destination":"waystar",
+                "sourceKey":"aarista-sftp-837-destination",
+                "destinationKey":"waystar-sftp-837-destination",
+                "enabled":true,
+                "fileFormat":".837",
+                "deleteAfterRead":false
+            },
+            "835":{
+                "source":"waystar",
+                "destination":"aarista",
+                "sourceKey":"waystar-sftp-837-destination",
+                "destinationKey":"aarista-sftp-837-destination",
+                "enabled":true,
+                "fileFormat":".837",
+                "deleteAfterRead":false
+            }
+        }
+        
+    }
+}

@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "@azure/arm-datafactory": "^14.1.0",
+    "@azure/identity": "^4.1.0",
+    "@azure/keyvault-secrets": "^4.8.0",
+    "applicationinsights": "^3.2.1",
+    "azure-storage": "^2.10.7",
+    "os": "^0.1.2",
+    "ssh2-sftp-client": "^10.0.3",
+    "uuid": "^9.0.1",
+    "xlsx": "^0.18.5"
+  }
+}
