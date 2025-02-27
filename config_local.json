@@ -1,12 +1,12 @@
 {
-    "azureStorageContainerName" : "cont-aarista-001",
+    "azureStorageContainerName" : "cont-alai-aarista",
     "clientId":"aarista",
-    "keyVaultUrl":"https://kv-eus2-rcm-aarista-prod.vault.azure.net/",
+    "keyVaultUrl":"https://alai-aarista-kv-eus2-sky.vault.azure.net/",
     "storage835DestinationPath":"inbound/aarista/835_edi",
     "pipelines":{
-        "subscriptionId" :"fca4100f-1b2c-44be-9013-4744bece2f1b",
-        "resourceGroupName":"aarista-prod-eus2-rg",
-        "dataFactoryName":"adf-eus2-rcm-aarista-prod",
+        "subscriptionId" :"fcbe76bb-cc8a-4475-a2ec-c59c4e2bc74c",
+        "resourceGroupName":"alai-aarista-rg-eus2-sky",
+        "dataFactoryName":"alai-aarista-adf-eus2-sky",
         "835" : "835 Parser"
     },
     "sftpConnections":{

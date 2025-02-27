@@ -6,7 +6,6 @@ const config = require('../config.json');
 
 
 const containerName = config.azureStorageContainerName;
-const clientId = config.clientId;
 const keyVault = config.keyVaultUrl
 
 const credential = new DefaultAzureCredential() 
@@ -27,7 +26,7 @@ async function getSecret(client,secretName) {
     return config["enabled"]
   }
 
-async function send837Files(context, runId, batchId, connection){
+async function send837Files(context, runId, batchId, connection, clientId){
     const sftp = new Client();
     const config = sftpConnections[connection]
     if(!canRun(config)){
@@ -70,18 +69,19 @@ async function send837Files(context, runId, batchId, connection){
         console.log(`Total Files available to send ${blobs.entries.length}`);
         context.log(`Total Files available to send ${blobs.entries.length}`);
 
-        intermediatePath = `${sftpDestinationPath}/Waystar${batchId}`
-        try {
-            await sftp.stat(intermediatePath);
-            console.log(`Directory: ${intermediatePath} available`);
-        } catch (err) {
-            if (err.code === 'ENOENT') {
-                await sftp.mkdir(intermediatePath, true);
-                console.log(`Created directory: ${intermediatePath}`);
-            } else {
-                throw err;
-            }
-        }
+        // intermediatePath = `${sftpDestinationPath}/Waystar${batchId}`
+        intermediatePath = `${sftpDestinationPath}`
+        // try {
+        //     await sftp.stat(intermediatePath);
+        //     console.log(`Directory: ${intermediatePath} available`);
+        // } catch (err) {
+        //     if (err.code === 'ENOENT') {
+        //         await sftp.mkdir(intermediatePath, true);
+        //         console.log(`Created directory: ${intermediatePath}`);
+        //     } else {
+        //         throw err;
+        //     }
+        // }
         
 
         for (const blob of blobs.entries) {
@@ -110,11 +110,12 @@ module.exports = async function (context,req) {
     runId = req.query.sync_id
     batchId = req.query.sync_batch_id
     clearingHouses = req.query.clearing_houses
-    console.log(`runId ${runId}, batchId: ${batchId}, clearingHouses : ${clearingHouses}`);
-    context.log(`runId ${runId}, batchId: ${batchId}, clearingHouses : ${clearingHouses}`);
+    clientId = req.query.client_id
+    console.log(`runId ${runId}, batchId: ${batchId}, clearingHouses : ${clearingHouses}, clientId : ${clientId}`);
+    context.log(`runId ${runId}, batchId: ${batchId}, clearingHouses : ${clearingHouses}, clientId : ${clientId}`);
     if(clearingHouses){
         const promises =  clearingHouses.split(',').map(async(clearingHouse) => {
-            await send837Files(context,runId, batchId, clearingHouse.toLowerCase())
+            await send837Files(context,runId, batchId, clearingHouse.toLowerCase(),clientId)
         });
 
         await Promise.all(promises)
