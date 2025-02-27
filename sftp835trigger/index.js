@@ -4,6 +4,6 @@ module.exports = async function (context,req) {
  try{
     await mainFunction(context,req)
  }catch(err){
-    context.log("---Error", err)
+    throw err
  }
 }

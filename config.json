@@ -2,6 +2,13 @@
     "azureStorageContainerName" : "cont-alai-aarista",
     "clientId":"aarista",
     "keyVaultUrl":"https://alai-aarista-kv-eus2-sky.vault.azure.net/",
+    "storage835DestinationPath":"inbound/aarista/835_edi",
+    "pipelines":{
+        "subscriptionId" :"fcbe76bb-cc8a-4475-a2ec-c59c4e2bc74c",
+        "resourceGroupName":"alai-aarista-rg-eus2-sky",
+        "dataFactoryName":"alai-aarista-adf-eus2-sky",
+        "835" : "835 Parser"
+    },
     "sftpConnections":{
         "waystar": {
             "hostKey": "aarista-sftp-hostname",
@@ -12,8 +19,8 @@
             "835":{
                 "sourceKey": "aarista-sftp-835-source",
                 "storageDestination":"inbound/aarista/835_edi/{0}/{1}/sftp",
-                "fileFormat":".835",
-                "deleteAfterRead":false,
+                "fileFormat":".835.edi",
+                "deleteAfterRead":true,
                 "enabled":true
             },
             "277":{

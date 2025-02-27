@@ -50,6 +50,7 @@ async function send837Files(context, runId, batchId, connection){
             "username": username,
             "password": password
         }
+
         const conString = await getSecret(client,"blob-connection-string")
         const blobService = azureStorage.createBlobService(conString);
         const blobPrefix = `inbound/${clientId}/generated_837_selective_grouped/${batchId}/${runId}/${connection}/`;
@@ -69,14 +70,29 @@ async function send837Files(context, runId, batchId, connection){
         console.log(`Total Files available to send ${blobs.entries.length}`);
         context.log(`Total Files available to send ${blobs.entries.length}`);
 
+        intermediatePath = `${sftpDestinationPath}/Waystar${batchId}`
+        try {
+            await sftp.stat(intermediatePath);
+            console.log(`Directory: ${intermediatePath} available`);
+        } catch (err) {
+            if (err.code === 'ENOENT') {
+                await sftp.mkdir(intermediatePath, true);
+                console.log(`Created directory: ${intermediatePath}`);
+            } else {
+                throw err;
+            }
+        }
+        
+
         for (const blob of blobs.entries) {
             localFileName = blob.name
             console.log(`Downloading blob: ${localFileName}`);
             context.log(`Downloading blob: ${localFileName}`);
+            
             remoteFileName = localFileName.substring(localFileName.lastIndexOf('/') + 1);
             const blobStream = blobService.createReadStream(containerName, localFileName);
-            console.log(`sftpDestinationPath: ${sftpDestinationPath}, localFileName: ${localFileName}`)
-            await sftp.put(blobStream, `${sftpDestinationPath}/${remoteFileName}`);
+            console.log(`sftpDestinationPath: ${intermediatePath}, localFileName: ${localFileName}`)
+            await sftp.put(blobStream, `${intermediatePath}/${remoteFileName}`);
             console.log(`Downloaded blob ${localFileName}`);
             context.log(`Downloaded blob ${localFileName}`);
         }

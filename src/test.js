@@ -1,5 +1,5 @@
 // const processSftpFiles = require('./sftpcopy.js');
-const processSftpFiles = require('./filecopy.js');
+const processSftpFiles = require('./835filecopy.js');
 
 const context = {
     log: console.log,
@@ -32,9 +32,9 @@ const context = {
 
 const request = {
     query:{
-        // "sync_id":"12942afd-ff30-48c9-870a-36c3acb12f9d",
+        // "sync_id":"81ea3359-5413-44a7-ab85-9c12320784bd",
         // "clearing_houses":"Waystar",
-        // "sync_batch_id":"20250115"
+        // "sync_batch_id":"20250118"
      }
 };
 

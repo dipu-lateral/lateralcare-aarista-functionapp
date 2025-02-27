@@ -1,4 +1,4 @@
-const mainFunction = require('../src/277filecopy.js')
+const mainFunction = require('../src/835filecopy.js')
 
 module.exports = async function (context, myTimer) {
     var timeStamp = new Date().toISOString();

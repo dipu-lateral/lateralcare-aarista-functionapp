@@ -104,6 +104,7 @@ async function split835Files(context,batchId, runId, isManualRemittance){
     console.log("=============SPLIT 835 FILES==============")
     context.log("=============SPLIT 835 FILES==============")
     const blobPrefix = `${storage835DestinationPath}/${batchId}/${runId}/sftp/`;
+    console.log(`=============blobPrefix:${blobPrefix}==============`)
     const blobs = await utils.getFilesFromBlob(blobPrefix)
     const promises =  blobs.entries.map(async(blob) => {
         await applyTransformation(blob, batchId, runId, isManualRemittance)
