@@ -7,7 +7,7 @@
         "subscriptionId" :"fca4100f-1b2c-44be-9013-4744bece2f1b",
         "resourceGroupName":"aarista-prod-eus2-rg",
         "dataFactoryName":"adf-eus2-rcm-aarista-prod",
-        "835" : "835 Parser"
+        "835" : "835 Master Runner"
     },
     "sftpConnections":{
         "waystar": {
@@ -16,13 +16,6 @@
             "passwordKey": "aarista-sftp-password",
             "837destinationKey": "aarista-sftp-837-destination",
             "enabled":true,
-            "835":{
-                "sourceKey": "aarista-sftp-835-source",
-                "storageDestination":"inbound/aarista/835_edi/{0}/{1}/sftp",
-                "fileFormat":".835.edi",
-                "deleteAfterRead":true,
-                "enabled":true
-            },
             "277":{
                 "sourceKey": "aarista-sftp-277-source",
                 "storageDestination":"inbound/aarista/277_edi/{0}/{1}",
@@ -35,6 +28,20 @@
                 "storageDestination":"inbound/aarista/999_edi/{0}/{1}",
                 "fileFormat": ".edi",
                 "deleteAfterRead":false,
+                "enabled":true
+            }
+        },
+        "aarista": {
+            "hostKey": "aarista-sftp-835-hostname",
+            "usernameKey": "aarista-sftp-835-username",
+            "passwordKey": "aarista-sftp-835-password",
+            "837destinationKey": "aarista-sftp-837-destination",
+            "enabled":true,
+            "835":{
+                "sourceKey": "aarista-sftp-835-source",
+                "storageDestination":"inbound/aarista/835_edi/{0}/{1}/sftp",
+                "fileFormat":".835.edi",
+                "deleteAfterRead":true,
                 "enabled":true
             }
         }
